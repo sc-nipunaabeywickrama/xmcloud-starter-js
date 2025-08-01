@@ -219,7 +219,6 @@ SharedFields:
             $imageCarouselVariants = $service.GetAvailableRenderingVariants($Site, $renderingImageCarousel.Name, $renderingImageCarousel.ID, $item.TemplateID)
             $promoVariants = $service.GetAvailableRenderingVariants($Site, $renderingPromo.Name, $renderingPromo.ID, $item.TemplateID)
             $accordionVariants = $service.GetAvailableRenderingVariants($Site, $renderingAccordion.Name, $renderingAccordion.ID, $item.TemplateID)
-            $pageHeaderVariants = $service.GetAvailableRenderingVariants($Site, $renderingPageHeader.Name, $renderingPageHeader.ID, $item.TemplateID)
     
             $heroVariant = $heroVariants | Where-Object { $_.DisplayName -eq "Image Background" }
             $textBannerVariant = $textBannerVariants | Where-Object { $_.Name -eq "Default" }
@@ -227,7 +226,6 @@ SharedFields:
             $promoVariant = $promoVariants | Where-Object { $_.Name -eq "Default" }
             $accordionVariant = $accordionVariants | Where-Object { $_.Name -eq "Default" }
             $accordion5050Variant = $accordionVariants | Where-Object { $_.Name -eq "Fifty Fifty Title Above" }
-            $pageHeaderVariant = $pageHeaderVariants | Where-Object { $_.Name -eq "Default" }
             $locSearchVariant = $locSearchVariants | Where-Object { $_.Name -eq "Default" }
             $subFormVariant = $subFormVariants | Where-Object { $_.Name -eq "Default" }
     
