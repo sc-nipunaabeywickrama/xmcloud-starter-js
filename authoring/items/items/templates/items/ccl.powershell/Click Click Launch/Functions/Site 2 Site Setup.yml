@@ -128,6 +128,7 @@ SharedFields:
             
             $aeroPage = Get-Item -Path "$sitePath/Home/Products/Aero" -Language $Site.Language
             $nexaPage = Get-Item -Path "$sitePath/Home/Products/Nexa" -Language $Site.Language
+            $nexaPageHeader = Get-Item -Path "$sitePath/Home/Products/Nexa/Data/Page Header 1" -Language $Site.Language
             $terraPage = Get-Item -Path "$sitePath/Home/Products/Terra" -Language $Site.Language
             
             Update-LinkField -Item $aeroLink -FieldName "link" -TargetItem $aeroPage
