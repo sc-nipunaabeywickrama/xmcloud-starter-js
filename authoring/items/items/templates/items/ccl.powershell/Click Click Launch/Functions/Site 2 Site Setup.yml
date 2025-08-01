@@ -11,6 +11,7 @@ SharedFields:
     Import-Function Update-PageTemplate
     Import-Function Update-TemplateInsertOptions
     Import-Function Update-LinkField
+    Import-Function Add-SampleImages
     
     function Invoke-ModuleScriptBody {
         [CmdletBinding()]
@@ -35,19 +36,15 @@ SharedFields:
             $service = [Sitecore.DependencyInjection.ServiceLocator]::ServiceProvider.GetService([Sitecore.XA.Foundation.Variants.Abstractions.Services.IAvailableRenderingVariantService])
             $item = Get-Item -Path "$sitePath/Home" -Language $Site.Language
             Write-Verbose "My site: $sitePath"
-    
-            # handle missing styles folder
-            if (-not (Test-Path "$sitePath/Presentation/Styles")) {
-                Import-Function Invoke-AddItem
-                $action = Get-Item . -ID '{B2486523-7487-4526-978F-AD2E986B5CC4}'
-                Invoke-AddItem $Site $action
-            }
             
             Write-Verbose "Reset the start item and the rendering host"
             # reset the start item and the rendering host
             $siteName = $Site.Name
             $siteGrouping = Get-Item -Path "$sitePath/Settings/Site Grouping/$($sitename)" -Language $Site.Language
             $siteGrouping.StartItem = $item.ID
+
+            # Add sample media
+            Add-SampleImages -Site $Site -TemplatePath "/sitecore/templates/Branches/Project/click-click-launch/Alaris/Add Sample Images" -SiteCollection $siteCollection
             
             Write-Verbose "Create page templates in the Site Collection"
             $basePageTemplateId = "{AC9DE9BE-8E86-4147-8FBC-739D5560408B}"
