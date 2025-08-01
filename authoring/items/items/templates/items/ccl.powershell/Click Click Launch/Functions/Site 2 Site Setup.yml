@@ -159,8 +159,8 @@ SharedFields:
             Get-Item -Path "$($item.ItemPath)/Products/Aero/Data/Page Header 2" -Language $Site.Language | Update-LinkField -FieldName "link2" -TargetItem $item
             Get-Item -Path "$($item.ItemPath)/Products/Nexa/Data/Accordion - Nexa - Demo Official" -Language $Site.Language | Update-LinkField -FieldName "link" -TargetItem $nexaPage
             # Re-enable when page header 2 is added to Nexa
-            Get-Item -Path "$($item.ItemPath)/Products/Nexa/Data/Page Header 2" -Language $Site.Language | Update-LinkField -FieldName "link1" -TargetItem $testDriveItem
-            Get-Item -Path "$($item.ItemPath)/Products/Nexa/Data/Page Header 2" -Language $Site.Language | Update-LinkField -FieldName "link2" -TargetItem $item
+            # Get-Item -Path "$($item.ItemPath)/Products/Nexa/Data/Page Header 2" -Language $Site.Language | Update-LinkField -FieldName "link1" -TargetItem $testDriveItem
+            # Get-Item -Path "$($item.ItemPath)/Products/Nexa/Data/Page Header 2" -Language $Site.Language | Update-LinkField -FieldName "link2" -TargetItem $item
             
             Write-Verbose "Update product pages with the correct taxonomy"
             $productTag = Get-Item -Path "$sitePath/Data/Taxonomy/Content Types/Product" -Language $Site.Language
@@ -194,9 +194,13 @@ SharedFields:
             $renderingHero = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Banners/Hero'
             $renderingTextBanner = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Banners/TextBanner'
             $renderingImageCarousel = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Media/ImageCarousel'
+            $renderingImageGallery = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Media/ImageGallery'
+            $renderingPageHeader = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Banners/PageHeader'
             $renderingPromo = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Promos/Promo'
             $renderingProductListing = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Product/ProductListing'
             $renderingAccordion = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Accordions/Accordion'
+            $renderingLocationSearch = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Location Search/Location Search'
+            $renderingSubmissionForm = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Forms/Submission Form'
     
             # prepare rendering definitions
             $renderingContainerFullBleedDefinition = $renderingContainerFullBleed | New-Rendering
