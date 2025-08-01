@@ -225,6 +225,9 @@ SharedFields:
             $imageCarouselVariant = $imageCarouselVariants | Where-Object { $_.Name -eq "Default" }
             $promoVariant = $promoVariants | Where-Object { $_.Name -eq "Default" }
             $accordionVariant = $accordionVariants | Where-Object { $_.Name -eq "Default" }
+            $accordion5050Variant = $accordionVariants | Where-Object { $_.Name -eq "Fifty Fifty Title Above" }
+            $locSearchVariant = $locSearchVariants | Where-Object { $_.Name -eq "Default" }
+            $subFormVariant = $subFormVariants | Where-Object { $_.Name -eq "Default" }
     
             # add Home layout
             Add-Rendering -Item $item -PlaceHolder "headless-main" -Instance $renderingContainerFullBleedDefinition -Parameter @{ "DynamicPlaceholderId" = "1"; "excludeTopMargin" = "1" } -FinalLayout
