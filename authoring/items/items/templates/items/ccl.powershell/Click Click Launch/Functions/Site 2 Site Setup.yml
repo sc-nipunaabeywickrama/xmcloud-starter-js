@@ -210,7 +210,6 @@ SharedFields:
             $renderingProductListingDefinition = $renderingProductListing | New-Rendering
             $renderingAccordionDefinition = $renderingAccordion | New-Rendering
             $locSearchVariants = $service.GetAvailableRenderingVariants($Site, $renderingLocationSearch.Name, $renderingLocationSearch.ID, $item.TemplateID)
-            $subFormVariants = $service.GetAvailableRenderingVariants($Site, $renderingSubmissionForm.Name, $renderingSubmissionForm.ID, $item.TemplateID)
     
             # prepare rendering variants  
             $heroVariants = $service.GetAvailableRenderingVariants($Site, $renderingHero.Name, $renderingHero.ID, $item.TemplateID)
@@ -273,9 +272,6 @@ SharedFields:
                 Set-Rendering -Item $testDriveItem -FinalLayout
             Get-Rendering -Item $testDriveItem -Rendering $renderingLocationSearch -FinalLayout | `
                 Set-RenderingParameter -Parameter @{ "FieldNames" = $locSearchVariant.ID } | `
-                Set-Rendering -Item $testDriveItem -FinalLayout
-            Get-Rendering -Item $testDriveItem -Rendering $renderingSubmissionForm -FinalLayout | `
-                Set-RenderingParameter -Parameter @{ "FieldNames" = $subFormVariant.ID } | `
                 Set-Rendering -Item $testDriveItem -FinalLayout
       
             Write-Verbose "Update home page fields"
