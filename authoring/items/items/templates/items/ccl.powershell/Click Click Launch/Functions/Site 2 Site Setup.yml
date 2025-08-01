@@ -227,7 +227,6 @@ SharedFields:
             $accordion5050Variant = $accordionVariants | Where-Object { $_.Name -eq "Fifty Fifty Title Above" }
             $pageHeaderVariant = $pageHeaderVariants | Where-Object { $_.Name -eq "Default" }
             $locSearchVariant = $locSearchVariants | Where-Object { $_.Name -eq "Default" }
-            $subFormVariant = $subFormVariants | Where-Object { $_.Name -eq "Default" }
     
             # add Home layout
             Add-Rendering -Item $item -PlaceHolder "headless-main" -Instance $renderingContainerFullBleedDefinition -Parameter @{ "DynamicPlaceholderId" = "1"; "excludeTopMargin" = "1" } -FinalLayout
