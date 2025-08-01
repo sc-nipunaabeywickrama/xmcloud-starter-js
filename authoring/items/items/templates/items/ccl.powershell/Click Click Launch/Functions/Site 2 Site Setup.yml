@@ -210,6 +210,8 @@ SharedFields:
             $renderingPromoDefinition = $renderingPromo | New-Rendering
             $renderingProductListingDefinition = $renderingProductListing | New-Rendering
             $renderingAccordionDefinition = $renderingAccordion | New-Rendering
+            $locSearchVariants = $service.GetAvailableRenderingVariants($Site, $renderingLocationSearch.Name, $renderingLocationSearch.ID, $item.TemplateID)
+            $subFormVariants = $service.GetAvailableRenderingVariants($Site, $renderingSubmissionForm.Name, $renderingSubmissionForm.ID, $item.TemplateID)
     
             # prepare rendering variants  
             $heroVariants = $service.GetAvailableRenderingVariants($Site, $renderingHero.Name, $renderingHero.ID, $item.TemplateID)
@@ -217,6 +219,8 @@ SharedFields:
             $imageCarouselVariants = $service.GetAvailableRenderingVariants($Site, $renderingImageCarousel.Name, $renderingImageCarousel.ID, $item.TemplateID)
             $promoVariants = $service.GetAvailableRenderingVariants($Site, $renderingPromo.Name, $renderingPromo.ID, $item.TemplateID)
             $accordionVariants = $service.GetAvailableRenderingVariants($Site, $renderingAccordion.Name, $renderingAccordion.ID, $item.TemplateID)
+            $imageGalleryVariants = $service.GetAvailableRenderingVariants($Site, $renderingImageGallery.Name, $renderingImageGallery.ID, $item.TemplateID)
+            $pageHeaderVariants = $service.GetAvailableRenderingVariants($Site, $renderingPageHeader.Name, $renderingPageHeader.ID, $item.TemplateID)
     
             $heroVariant = $heroVariants | Where-Object { $_.DisplayName -eq "Image Background" }
             $textBannerVariant = $textBannerVariants | Where-Object { $_.Name -eq "Default" }
