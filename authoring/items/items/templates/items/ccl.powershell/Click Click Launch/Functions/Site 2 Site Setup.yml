@@ -219,8 +219,6 @@ SharedFields:
             $imageCarouselVariants = $service.GetAvailableRenderingVariants($Site, $renderingImageCarousel.Name, $renderingImageCarousel.ID, $item.TemplateID)
             $promoVariants = $service.GetAvailableRenderingVariants($Site, $renderingPromo.Name, $renderingPromo.ID, $item.TemplateID)
             $accordionVariants = $service.GetAvailableRenderingVariants($Site, $renderingAccordion.Name, $renderingAccordion.ID, $item.TemplateID)
-            $imageGalleryVariants = $service.GetAvailableRenderingVariants($Site, $renderingImageGallery.Name, $renderingImageGallery.ID, $item.TemplateID)
-            $pageHeaderVariants = $service.GetAvailableRenderingVariants($Site, $renderingPageHeader.Name, $renderingPageHeader.ID, $item.TemplateID)
     
             $heroVariant = $heroVariants | Where-Object { $_.DisplayName -eq "Image Background" }
             $textBannerVariant = $textBannerVariants | Where-Object { $_.Name -eq "Default" }
