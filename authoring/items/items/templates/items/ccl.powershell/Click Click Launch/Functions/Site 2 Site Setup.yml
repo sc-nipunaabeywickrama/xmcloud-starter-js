@@ -210,8 +210,6 @@ SharedFields:
             $renderingPromoDefinition = $renderingPromo | New-Rendering
             $renderingProductListingDefinition = $renderingProductListing | New-Rendering
             $renderingAccordionDefinition = $renderingAccordion | New-Rendering
-            $renderingImageGalleryDefinition = $renderingImageGallery | New-Rendering
-            $renderingPageHeaderDefinition = $renderingPageHeader | New-Rendering
             $locSearchVariants = $service.GetAvailableRenderingVariants($Site, $renderingLocationSearch.Name, $renderingLocationSearch.ID, $item.TemplateID)
             $subFormVariants = $service.GetAvailableRenderingVariants($Site, $renderingSubmissionForm.Name, $renderingSubmissionForm.ID, $item.TemplateID)
     
@@ -230,6 +228,7 @@ SharedFields:
             $promoVariant = $promoVariants | Where-Object { $_.Name -eq "Default" }
             $accordionVariant = $accordionVariants | Where-Object { $_.Name -eq "Default" }
             $accordion5050Variant = $accordionVariants | Where-Object { $_.Name -eq "Fifty Fifty Title Above" }
+            $accordionCenteredVariant = $accordionVariants | Where-Object { $_.Name -eq "Centered" }
             $imageGalleryVariant = $imageGalleryVariants | Where-Object { $_.Name -eq "Default" }
             $pageHeaderVariant = $pageHeaderVariants | Where-Object { $_.Name -eq "Default" }
             $locSearchVariant = $locSearchVariants | Where-Object { $_.Name -eq "Default" }
