@@ -197,8 +197,8 @@ SharedFields:
             $renderingPromo = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Promos/Promo'
             $renderingProductListing = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Product/ProductListing'
             $renderingAccordion = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Accordions/Accordion'
-            $renderingImageGallery = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Media/ImageGallery'
-            $renderingPageHeader = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Banners/PageHeader'
+            $renderingImageGallery = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Media/Image Gallery'
+            $renderingPageHeader = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Banners/Page Header'
             $renderingLocationSearch = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Location Search/Location Search'
             $renderingSubmissionForm = Get-Item -Path '/sitecore/layout/Renderings/Project/click-click-launch/Forms/Submission Form'
     
