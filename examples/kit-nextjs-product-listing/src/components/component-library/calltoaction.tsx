@@ -241,7 +241,7 @@ export const CallToAction4 = (props: CTAProps) => {
 // Default variant - maps to "Default" rendering variant in Sitecore
 // This is the same as CallToAction1 (background with image overlay)
 
-// With Image variant - maps to "With Image" rendering variant in Sitecore  
+// With Image variant - maps to "With Image" rendering variant in Sitecore
 // Content on left, image on right
 export const WithImage = (props: CTAProps) => {
   return <CallToAction2 {...props} />;
