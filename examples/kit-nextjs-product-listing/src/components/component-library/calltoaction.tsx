@@ -234,3 +234,21 @@ export const CallToAction4 = (props: CTAProps) => {
     </section>
   );
 };
+
+// Sitecore Rendering Variant Exports
+// These exports map to the Sitecore rendering variants created in the CMS
+
+// Default variant - maps to "Default" rendering variant in Sitecore
+// This is the same as CallToAction1 (background with image overlay)
+
+// With Image variant - maps to "With Image" rendering variant in Sitecore  
+// Content on left, image on right
+export const WithImage = (props: CTAProps) => {
+  return <CallToAction2 {...props} />;
+};
+
+// Image Left variant - maps to "Image Left" rendering variant in Sitecore
+// Image on left, content on right
+export const ImageLeft = (props: CTAProps) => {
+  return <CallToAction3 {...props} />;
+};

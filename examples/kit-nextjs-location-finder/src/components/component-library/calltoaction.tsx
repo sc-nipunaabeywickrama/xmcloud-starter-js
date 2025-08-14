@@ -183,54 +183,20 @@ export const CallToAction3 = (props: CTAProps) => {
   );
 };
 
-export const CallToAction4 = (props: CTAProps) => {
-  const { page } = useSitecore();
-  const { isEditing } = page.mode;
+// Sitecore Rendering Variant Exports
+// These exports map to the Sitecore rendering variants created in the CMS
 
-  return (
-    <section className={`px-[5%] py-12 md:py-24 ${props.params.styles}`} data-class-change>
-      <div className="container mx-auto">
-        <div className="py-3 md:py-4">
-          {/* Row 1: Title and Content */}
-          <div className="grid-rows-auto grid grid-cols-1 items-start gap-8 md:grid-cols-2 mb-12">
-            {/* Left Column - Title */}
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
-                <ContentSdkText field={props.fields.CTATitle} />
-              </h1>
-            </div>
-            {/* Right Column - Body and Buttons */}
-            <div>
-              <div className="mb-8">
-                <ContentSdkRichText field={props.fields.CTABody} />
-              </div>
-              <div className="align-center grid-cols-1 md:grid-cols-2 flex grid flex-wrap gap-4">
-                {props.fields.CTALink1?.value?.href || isEditing ? (
-                  <Button
-                    className="h-14 w-full px-8 text-lg md:h-10 md:w-auto md:px-4 md:text-sm"
-                    asChild={true}
-                  >
-                    <ContentSdkLink field={props.fields.CTALink1} prefetch={false} />
-                  </Button>
-                ) : null}
-                {props.fields.CTALink2?.value?.href || isEditing ? (
-                  <Button
-                    variant="outline"
-                    className="h-14 w-full px-8 text-lg md:h-10 md:w-auto md:px-4 md:text-sm"
-                    asChild={true}
-                  >
-                    <ContentSdkLink field={props.fields.CTALink2} prefetch={false} />
-                  </Button>
-                ) : null}
-              </div>
-            </div>
-          </div>
-          {/* Row 2: Full-width Image */}
-          <div className="w-full">
-            <ContentSdkImage field={props.fields.CTAImage} className="w-full h-auto" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+// Default variant - maps to "Default" rendering variant in Sitecore
+// This is the same as CallToAction1 (background with image overlay)
+
+// With Image variant - maps to "With Image" rendering variant in Sitecore
+// Content on left, image on right
+export const WithImage = (props: CTAProps) => {
+  return <CallToAction2 {...props} />;
+};
+
+// Image Left variant - maps to "Image Left" rendering variant in Sitecore
+// Image on left, content on right
+export const ImageLeft = (props: CTAProps) => {
+  return <CallToAction3 {...props} />;
 };
