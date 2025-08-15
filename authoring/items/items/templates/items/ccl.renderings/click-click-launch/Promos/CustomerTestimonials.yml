@@ -9,48 +9,10 @@ SharedFields:
   Value: testimonials
 - ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
   Hint: __Icon
-  Value: Office/32x32/messages.png
-- ID: "17bb046a-a32a-41b3-8315-81217947611b"
-  Hint: ComponentQuery
-  Value: |
-    query TitleQuery($datasource: String!, $language: String!) {
-      datasource: item(path: $datasource, language: $language) {
-        children {
-          results {
-            ... on CustomerTestimonial {
-              caseStudyLink {
-                jsonValue
-              }
-              customerName {
-                jsonValue
-              }
-              customerCompany {
-                jsonValue
-              }
-              customerIcon {
-                jsonValue
-              }
-              testimonialBody {
-                jsonValue
-              }
-              testimonialIcon {
-                jsonValue
-              }
-            }
-          }
-        }
-        title: field(name: "Title") {
-          jsonValue
-        }
-        tagLine: field(name: "TagLine") {
-          jsonValue
-        }
-      }
-    }
-    
+  Value: Office/32x32/messages.png  
 - ID: "1a7c85e5-dc0b-490d-9187-bb1dbcb4c72f"
   Hint: Datasource Template
-  Value: "/sitecore/templates/Project/xmc-cl/Component Library/Testimonials/Customer Testimonial Datasource"
+  Value: "/sitecore/templates/Project/click-click-launch/Components/Testimonials/Customer Testimonial"
 - ID: "7d8ae35f-9ed1-43b5-96a2-0a5f040d4e4e"
   Hint: Open Properties after Add
   Value: 0
