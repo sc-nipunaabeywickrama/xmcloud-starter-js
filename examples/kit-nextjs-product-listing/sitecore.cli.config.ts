@@ -15,7 +15,15 @@ export default defineCliConfig({
       generateSites(),
       extractFiles(),
       writeImportMap({
-        paths: ['src/components'],
+        paths: [
+          'src/components',
+          'src/components/content-sdk/*',
+          'src/components/atoms/**',
+          'src/components/ui/**',
+          '**/*.schema.ts',
+          '**/*.props.ts',
+          '**/*.props.tsx',
+        ],
       }),
     ],
   },
@@ -24,6 +32,9 @@ export default defineCliConfig({
     // Exclude content-sdk auxillary components
     exclude: [
       'src/components/content-sdk/*',
+      'src/components/atoms/**',
+      'src/components/ui/**',
+      '**/*.schema.ts',
       'src/components/ui/*',
       'src/components/lib/*',
       'src/components/video/*',
