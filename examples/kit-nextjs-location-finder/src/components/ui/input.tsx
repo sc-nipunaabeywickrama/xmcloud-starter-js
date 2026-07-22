@@ -1,22 +1,24 @@
-import type * as React from "react";
+import * as React from 'react';
 
-import { cn } from "@/lib/atoms-utils";
+import { cn } from '@/lib/utils';
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
-  return (
-    <input
-      type={type}
-      data-slot="input"
-      className={cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-inverse-text dark:bg-input/30 border-input flex h-10 w-full min-w-0 rounded-sm border bg-body-bg px-3 py-1 text-base transition-[color] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        "focus-visible:border-primary",
-        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-        "border-input focus:border-primary focus:ring-primary text-md font-regular placeholder-blackAlpha-400 rounded-md border focus:ring-1",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(
+          'border-input bg-foreground ring-offset-background text-background file:text-background placeholder:text-muted-foreground focus-visible:ring-ring rounded-default font-heading flex h-10 w-full border px-3 py-2 text-base font-normal leading-none file:border-0 file:bg-transparent file:text-sm file:font-normal focus:placeholder-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+Input.displayName = 'Input';
 
 export { Input };
