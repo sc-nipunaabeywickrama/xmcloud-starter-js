@@ -156,7 +156,8 @@ export const ImageCarouselThumbnails = (props: ImageCarouselProps) => {
 
               {/* Navigation buttons overlaid on main carousel */}
               <Button
-                variant="secondary"
+                variant="default"
+                colorScheme="neutral"
                 size="icon"
                 onClick={() => api?.scrollPrev()}
                 aria-label="Previous slide"
@@ -166,7 +167,8 @@ export const ImageCarouselThumbnails = (props: ImageCarouselProps) => {
               </Button>
 
               <Button
-                variant="secondary"
+                variant="default"
+                colorScheme="neutral"
                 size="icon"
                 onClick={() => api?.scrollNext()}
                 aria-label="Next slide"

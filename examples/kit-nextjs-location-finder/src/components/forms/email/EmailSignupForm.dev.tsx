@@ -1,8 +1,6 @@
 'use client';
 
 import type React from 'react';
-import { EnumValues } from '@/enumerations/generic.enum';
-import { ButtonVariants } from '@/enumerations/ButtonStyle.enum';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,10 +14,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Text, Field } from '@sitecore-content-sdk/nextjs';
+import { Text } from '@sitecore-content-sdk/nextjs';
 import { useState } from 'react';
 import { SuccessCompact } from '../success/success-compact.dev';
 import { cn } from '@/lib/utils';
+import { mapButtonStyle } from '@/components/button-component/map-button-style.util';
 
 import type { EmailSignupFormProps } from './email-signup-form.props';
 
@@ -58,7 +57,7 @@ export const Default: React.FC<EmailSignupFormProps> = (props) => {
   const emailPlaceholder = props.fields?.emailPlaceholder?.value || 'Enter your email address';
   const buttonText = props.fields?.emailSubmitLabel?.value || 'Subscribe';
   const successMessage = props.fields?.emailSuccessMessage?.value || 'Thank you for subscribing!';
-  const btnVariant = props.fields?.buttonVariant || 'default';
+  const buttonStyle = mapButtonStyle(props.fields?.buttonVariant);
 
   if (isSubmitted) {
     return <SuccessCompact successMessage={successMessage} />;
@@ -83,7 +82,12 @@ export const Default: React.FC<EmailSignupFormProps> = (props) => {
             </FormItem>
           )}
         />
-        <Button type="submit" variant={btnVariant}>
+        <Button
+          type="submit"
+          variant={buttonStyle.variant}
+          colorScheme={buttonStyle.colorScheme}
+          className={buttonStyle.className}
+        >
           <Text field={{ value: buttonText }} />
         </Button>
       </form>

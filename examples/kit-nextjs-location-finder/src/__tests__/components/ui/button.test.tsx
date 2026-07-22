@@ -12,7 +12,7 @@ describe('Button', () => {
 
   it('applies variant and size classes', () => {
     const { container } = render(
-      <Button variant="destructive" size="lg">
+      <Button variant="default" colorScheme="danger" size="lg">
         Delete
       </Button>
     );

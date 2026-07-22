@@ -172,7 +172,8 @@ export const ImageCarouselDefault = (props: ImageCarouselProps) => {
         >
           <div className={controlsWrapperClasses} role="group" aria-label="Slideshow controls">
             <Button
-              variant="secondary"
+              variant="default"
+              colorScheme="neutral"
               size="icon"
               onClick={() => api?.scrollPrev()}
               aria-label="Previous slide"
@@ -186,7 +187,8 @@ export const ImageCarouselDefault = (props: ImageCarouselProps) => {
             )}
 
             <Button
-              variant="secondary"
+              variant="default"
+              colorScheme="neutral"
               size="icon"
               onClick={() => api?.scrollNext()}
               aria-label="Next slide"
