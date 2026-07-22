@@ -41,7 +41,10 @@ export type ButtonAtomProps = Omit<
   variant?: ButtonAtomVariant;
   /** Size token (md maps to UI Button default). */
   size?: ButtonAtomSize;
-  /** Color scheme (default/secondary map to UI primary/neutral). */
+  /**
+   * Color scheme for Design Studio. Mapped onto UI Button `variant`
+   * (UI button has no `colorScheme` prop).
+   */
   colorScheme?: ButtonAtomColorScheme;
 
   /** Optional navigation URL. When set, renders an accessible link-style button. */
@@ -70,14 +73,24 @@ function isExternalHref(href: string): boolean {
   return /^https?:\/\//i.test(href);
 }
 
-function mapVariant(variant: ButtonAtomVariant | undefined) {
-  switch (variant) {
-    case "outline":
-      return "outline" as const;
-    case "ghost":
-      return "ghost" as const;
-    case "link":
-      return "link" as const;
+function mapVariant(
+  variant: ButtonAtomVariant | undefined,
+  colorScheme: ButtonAtomColorScheme | undefined,
+) {
+  // Non-default atom variants map 1:1 to UI variants.
+  if (variant === "outline" || variant === "ghost" || variant === "link") {
+    return variant;
+  }
+
+  // For default variant, fold colorScheme into the richer UI variant set.
+  switch (colorScheme) {
+    case "secondary":
+      return "secondary" as const;
+    case "danger":
+      return "destructive" as const;
+    case "success":
+      return "tertiary" as const;
+    case "default":
     default:
       return "default" as const;
   }
@@ -88,33 +101,15 @@ function mapSize(size: ButtonAtomSize | undefined) {
     case "lg":
       return "lg" as const;
     case "sm":
-      return "sm" as const;
     case "xs":
-      return "xs" as const;
+      return "sm" as const;
     case "icon":
-      return "icon" as const;
     case "icon-lg":
-      return "icon-lg" as const;
     case "icon-sm":
-      return "icon-sm" as const;
     case "icon-xs":
-      return "icon-xs" as const;
+      return "icon" as const;
     default:
       return "default" as const;
-  }
-}
-
-function mapColorScheme(colorScheme: ButtonAtomColorScheme | undefined) {
-  switch (colorScheme) {
-    case "secondary":
-      return "neutral" as const;
-    case "success":
-      return "success" as const;
-    case "danger":
-      return "danger" as const;
-    case "default":
-    default:
-      return "primary" as const;
   }
 }
 
@@ -147,9 +142,8 @@ function ButtonAtomComponent({
     }
   }
 
-  const uiVariant = mapVariant(variant);
+  const uiVariant = mapVariant(variant, colorScheme);
   const uiSize = mapSize(size);
-  const uiColorScheme = mapColorScheme(colorScheme);
 
   const resolvedAriaLabel =
     ariaLabel ??
@@ -170,7 +164,6 @@ function ButtonAtomComponent({
         asChild
         variant={uiVariant}
         size={uiSize}
-        colorScheme={uiColorScheme}
         className={cn(className)}
         aria-label={resolvedAriaLabel}
       >
@@ -194,7 +187,6 @@ function ButtonAtomComponent({
       data-slot="button-atom"
       variant={uiVariant}
       size={uiSize}
-      colorScheme={uiColorScheme}
       className={cn(className)}
       aria-label={resolvedAriaLabel}
       disabled={disabled}

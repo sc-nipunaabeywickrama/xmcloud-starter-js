@@ -17,7 +17,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Text } from '@sitecore-content-sdk/nextjs';
 import { SuccessCompact } from '../success/success-compact.dev';
-import { mapButtonStyle } from '@/components/button-component/map-button-style.util';
 
 import type { SubmitInfoFormProps } from './submit-info-form.props';
 
@@ -111,7 +110,7 @@ export const Default: React.FC<SubmitInfoFormProps> = (props) => {
   const buttonText = props.fields?.buttonText?.value || 'Finish Booking';
   const successMessage =
     props.fields?.successMessage?.value || 'Got it. Thank you! We will be in touch shortly.';
-  const buttonStyle = mapButtonStyle(props.fields?.buttonVariant);
+  const btnVariant = props.fields?.buttonVariant || 'default';
 
   if (isSubmitted) {
     return <SuccessCompact successMessage={successMessage} />;
@@ -220,12 +219,7 @@ export const Default: React.FC<SubmitInfoFormProps> = (props) => {
           )}
         />
         <div>
-          <Button
-            className="mt-4"
-            type="submit"
-            variant={buttonStyle.variant}
-            colorScheme={buttonStyle.colorScheme}
-          >
+          <Button className="mt-4" type="submit" variant={btnVariant}>
             <Text field={{ value: buttonText }} />
           </Button>
         </div>

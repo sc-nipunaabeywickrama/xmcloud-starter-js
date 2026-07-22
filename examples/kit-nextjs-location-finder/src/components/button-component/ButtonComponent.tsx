@@ -20,7 +20,6 @@ import type { ButtonBaseProps, ButtonComponentProps } from './button-component.p
 
 export type { ButtonComponentProps, ButtonFields, ButtonBaseProps } from './button-component.props';
 import { isValidEditableLink, linkIsValid } from './button-component.props';
-import { mapButtonStyle } from './map-button-style.util';
 
 const ButtonBase = (props: ButtonBaseProps): JSX.Element | null => {
   const {
@@ -38,16 +37,8 @@ const ButtonBase = (props: ButtonBaseProps): JSX.Element | null => {
   const iconName = icon?.value as EnumValues<typeof IconName>;
   if (!isPageEditing && !linkIsValid(buttonLink)) return null;
 
-  const buttonStyle = mapButtonStyle(variant, className);
-
   return (
-    <Button
-      asChild
-      variant={buttonStyle.variant}
-      colorScheme={buttonStyle.colorScheme}
-      size={size}
-      className={buttonStyle.className}
-    >
+    <Button asChild variant={variant} size={size} className={className}>
       {isPageEditing ? (
         <CompatibleLink field={buttonLink} editable={true} />
       ) : (
@@ -106,16 +97,8 @@ const EditableButton = (props: {
   const ariaHidden = typeof isAriaHidden === 'boolean' ? isAriaHidden : true;
   if (!isPageEditing && !isValidEditableLink(buttonLink, icon)) return null;
 
-  const buttonStyle = mapButtonStyle(variant, className);
-
   return (
-    <Button
-      asChild
-      variant={buttonStyle.variant}
-      colorScheme={buttonStyle.colorScheme}
-      size={size}
-      className={buttonStyle.className}
-    >
+    <Button asChild variant={variant} size={size} className={className}>
       {isPageEditing ? (
         <span className="flex">
           {iconPosition === IconPosition.LEADING ? (
@@ -141,7 +124,7 @@ const EditableButton = (props: {
           <CompatibleLink
             field={buttonLink}
             editable={isPageEditing}
-            className={buttonStyle.className}
+            className={className}
             aria-label={asIconLink ? buttonLink?.value?.text : undefined}
             prefetch={false}
           >
@@ -192,17 +175,10 @@ const Default = (props: ButtonComponentProps): JSX.Element | null => {
 
   // Default icon size for buttons if not provided
   const iconClass = iconClassName || 'h-4 w-4';
-  const buttonStyle = mapButtonStyle(variant);
 
   if (fields) {
     return (
-      <Button
-        asChild
-        variant={buttonStyle.variant}
-        colorScheme={buttonStyle.colorScheme}
-        size={size}
-        className={buttonStyle.className}
-      >
+      <Button asChild variant={variant} size={size}>
         {isEditing ? (
           <span className="inline-flex items-center gap-2">
             {iconPosition === IconPosition.LEADING && buttonIcon && (

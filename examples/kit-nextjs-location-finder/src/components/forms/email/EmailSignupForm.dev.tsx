@@ -18,7 +18,6 @@ import { Text } from '@sitecore-content-sdk/nextjs';
 import { useState } from 'react';
 import { SuccessCompact } from '../success/success-compact.dev';
 import { cn } from '@/lib/utils';
-import { mapButtonStyle } from '@/components/button-component/map-button-style.util';
 
 import type { EmailSignupFormProps } from './email-signup-form.props';
 
@@ -57,7 +56,7 @@ export const Default: React.FC<EmailSignupFormProps> = (props) => {
   const emailPlaceholder = props.fields?.emailPlaceholder?.value || 'Enter your email address';
   const buttonText = props.fields?.emailSubmitLabel?.value || 'Subscribe';
   const successMessage = props.fields?.emailSuccessMessage?.value || 'Thank you for subscribing!';
-  const buttonStyle = mapButtonStyle(props.fields?.buttonVariant);
+  const btnVariant = props.fields?.buttonVariant || 'default';
 
   if (isSubmitted) {
     return <SuccessCompact successMessage={successMessage} />;
@@ -82,12 +81,7 @@ export const Default: React.FC<EmailSignupFormProps> = (props) => {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          variant={buttonStyle.variant}
-          colorScheme={buttonStyle.colorScheme}
-          className={buttonStyle.className}
-        >
+        <Button type="submit" variant={btnVariant}>
           <Text field={{ value: buttonText }} />
         </Button>
       </form>
