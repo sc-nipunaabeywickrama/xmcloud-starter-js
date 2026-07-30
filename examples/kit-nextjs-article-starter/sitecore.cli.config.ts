@@ -28,6 +28,7 @@ export default defineCliConfig({
           '**/*.context.tsx',
           '**/utils.ts',
           '**/utils.tsx',
+          'src/components/atoms/**',
         ],
       }),
     ],
@@ -48,6 +49,7 @@ export default defineCliConfig({
       '**/*.context.tsx',
       '**/utils.ts',
       '**/utils.tsx',
+      'src/components/atoms/**',
     ],
   },
 });
