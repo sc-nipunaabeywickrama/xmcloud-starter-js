@@ -16,6 +16,14 @@ export default defineCliConfig({
       extractFiles(),
       writeImportMap({
         paths: ['src/components'],
+        exclude: [
+          'src/components/content-sdk/*',
+          'src/components/atoms/**',
+          'src/components/ui/**',
+          '**/*.schema.ts',
+          '**/*.props.ts',
+          '**/*.props.tsx',
+        ],
       }),
     ],
   },
@@ -33,6 +41,7 @@ export default defineCliConfig({
       'src/components/image/ImageWrapper.dev.old.tsx',
       'src/components/**/*.props.ts',
       'src/components/**/*.props.tsx',
+      'src/components/atoms/**',
     ],
   },
 });
