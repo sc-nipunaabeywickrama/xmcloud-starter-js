@@ -30,12 +30,13 @@ export function buildArticleJsonLd(input: {
   articleBodyHtml?: string;
   inLanguage?: string;
 }): ArticleJsonLd {
+  const headline = input.headline ? stripHtml(input.headline) : undefined;
   const articleBody = input.articleBodyHtml ? stripHtml(input.articleBodyHtml) : undefined;
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: input.headline,
+    headline,
     articleBody,
     inLanguage: input.inLanguage,
   };
@@ -47,12 +48,15 @@ export function buildProductJsonLd(input: {
   image?: string | string[];
   url?: string;
 }): ProductJsonLd {
+  // `name` may come straight from rich text (e.g. Promo's PromoText); strip markup so JSON-LD
+  // never carries raw HTML.
+  const name = input.name ? stripHtml(input.name) : undefined;
   const description = input.descriptionHtml ? stripHtml(input.descriptionHtml) : undefined;
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: input.name,
+    name,
     description,
     image: input.image,
     url: input.url,

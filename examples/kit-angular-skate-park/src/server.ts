@@ -6,6 +6,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
+import compression from 'compression';
 import { join } from 'node:path';
 import memoryDriver from 'unstorage/drivers/memory';
 import {
@@ -31,6 +32,16 @@ import config from '../sitecore.config';
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+
+app.disable('x-powered-by');
+
+/**
+ * Gzip/deflate compression for HTML, JSON and static JS/CSS. Negotiates via `Accept-Encoding`
+ * and skips already-encoded responses, so it's a safe no-op behind a CDN/proxy that already
+ * compresses (e.g. Vercel's Brotli) — only matters for a bare `node server.mjs` deployment.
+ */
+app.use(compression());
+
 const angularApp = new AngularNodeAppEngine();
 
 /**
@@ -52,7 +63,14 @@ const loaderCache = createLoaderCache({
 
 app.use(express.json());
 
-/** Production webhook: POST /api/revalidate (Sitecore Edge OSR). */
+/** Health check endpoint. */
+app.get('/healthz', (_req, res) => res.sendStatus(200));
+
+/**
+ * Production webhook: POST /api/revalidate (Sitecore Edge OSR).
+ * Authenticated via `SITECORE_REVALIDATE_SECRET` / `x-revalidate-secret` when configured
+ * (optional — see `.env.example`).
+ */
 app.use(
   createSitecoreRevalidateMiddleware({
     cache: loaderCache,

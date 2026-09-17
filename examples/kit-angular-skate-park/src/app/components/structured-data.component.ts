@@ -33,7 +33,10 @@ export class StructuredDataComponent {
       const script = this.renderer.createElement('script');
       this.renderer.setAttribute(script, 'type', 'application/ld+json');
       this.renderer.setAttribute(script, 'id', this.scriptId());
-      const textNode = this.renderer.createText(JSON.stringify(jsonLdPayload));
+      // `JSON.stringify` does not escape `<`, so a `</script>` inside CMS content could otherwise
+      // terminate the tag early. Escaping is safe: `<` round-trips through JSON.parse.
+      const json = JSON.stringify(jsonLdPayload).replace(/</g, '\\u003c');
+      const textNode = this.renderer.createText(json);
       this.renderer.appendChild(script, textNode);
       this.renderer.appendChild(hostElement, script);
     });

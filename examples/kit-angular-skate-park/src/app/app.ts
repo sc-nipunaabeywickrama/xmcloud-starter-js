@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CdpPageViewComponent } from './components/content-sdk/cdp-page-view.component';
 import { ScEditingScriptsComponent, SitecoreContextService } from '@sitecore-content-sdk/angular';
@@ -11,7 +11,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('angular-sample');
   private context = inject(SitecoreContextService);
 
   constructor(translate: TranslateService) {
