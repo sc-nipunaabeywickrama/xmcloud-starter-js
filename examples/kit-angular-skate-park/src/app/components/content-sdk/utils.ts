@@ -14,10 +14,3 @@ export function computedRenderingId(
     return id || undefined;
   });
 }
-
-export function scComponentRoot(kind: string, params?: { [key: string]: string }): string {
-  const layoutParams = params as LayoutParams | undefined;
-  const extra = layoutParams?.Styles?.trim();
-  const base = `component ${kind}`.trim();
-  return extra ? `${base} ${extra}` : base;
-}
