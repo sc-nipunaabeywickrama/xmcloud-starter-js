@@ -59,11 +59,10 @@ export class NavigationItemComponent {
     const navItem = this.navItemFields();
     const href = (navItem.Href ?? '').trim();
     const linkText =
-      navItem.NavigationTitle?.value != null && String(navItem.NavigationTitle.value) !== ''
-        ? String(navItem.NavigationTitle.value)
-        : navItem.Title?.value != null && String(navItem.Title.value) !== ''
-        ? String(navItem.Title.value)
-        : navItem.DisplayName ?? '';
+      String(navItem.NavigationTitle?.value ?? '') ||
+      String(navItem.Title?.value ?? '') ||
+      navItem.DisplayName ||
+      '';
     return {
       value: {
         href,
