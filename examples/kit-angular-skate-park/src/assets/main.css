@@ -18,6 +18,11 @@ sc-placeholder.row {
   flex-direction: row;
 }
 
+/* Editing-mode chrome wrapper — remove its box so renderings stay direct flex items of sc-placeholder */
+sc-placeholder-metadata {
+  display: contents;
+}
+
 /* Header placeholder layout — xmcloud basic-spa basic/_header.scss (.prod-mode #header; mobile-large = 992px) */
 @media only screen and (max-width: 992px) {
   .prod-mode #header {
