@@ -1,12 +1,23 @@
 import { NextRequest } from 'next/server';
-import {
-  DEFAULT_LLMS_TXT,
-  LLMS_TXT_CONTENT_TYPE,
-  SiteResolver,
-} from '@sitecore-content-sdk/content/site';
+import { SiteResolver } from '@sitecore-content-sdk/content/site';
 import type { SiteInfo } from '@sitecore-content-sdk/nextjs';
 import sites from '.sitecore/sites.json';
-import client from 'lib/sitecore-client';
+
+const LLMS_TXT_CONTENT_TYPE = 'text/plain; charset=utf-8';
+
+/** Used when authored LLMs.txt content cannot be loaded. */
+const DEFAULT_LLMS_TXT = `# llms.txt
+
+This site has no LLMs.txt content available.
+`;
+
+/**
+ * This Content SDK build does not expose llms.txt on the client.
+ * Returns null so the route responds with the local fallback.
+ */
+async function readLlmsTxt(_siteName: string): Promise<string | null> {
+  return null;
+}
 
 /**
  * API route for serving llms.txt
@@ -113,7 +124,7 @@ export async function GET(req: NextRequest) {
       language: site.language ?? 'en',
     }));
     const site = new SiteResolver(sitesNormalized).getByHost(hostName);
-    const content = await client.getLlmsTxt({ siteName: site.name });
+    const content = await readLlmsTxt(site.name);
 
     if (!content) {
       return new Response(DEFAULT_LLMS_TXT, {
