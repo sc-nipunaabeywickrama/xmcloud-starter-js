@@ -16,6 +16,10 @@ export default defineCliConfig({
       extractFiles(),
       writeImportMap({
         paths: ['src/components'],
+        exclude: [
+          'src/components/atoms/**',
+          '**/*.schema.ts',
+        ],
       }),
     ],
   },
@@ -28,6 +32,8 @@ export default defineCliConfig({
       '**/*.props.ts',
       '**/*.props.tsx',
       '**/*.schema.ts',
+      'src/components/atoms/**',
+    '**/*.schema.ts',
     ],
   },
 });
