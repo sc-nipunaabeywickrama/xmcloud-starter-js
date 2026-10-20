@@ -2,7 +2,6 @@ import { isDesignLibraryPreviewData } from "@sitecore-content-sdk/nextjs/editing
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { draftMode, headers as nextHeaders } from "next/headers";
-import { getPageMetadata } from "@sitecore-content-sdk/nextjs";
 import { SiteInfo } from "@sitecore-content-sdk/nextjs";
 import sites from ".sitecore/sites.json";
 import { routing } from "src/i18n/routing";
@@ -90,39 +89,64 @@ export const generateStaticParams = async () => {
 
 type AuthoredField = { value?: unknown };
 
-/** Maps this starter's page fields onto the names getPageMetadata reads. */
-function toSdkMetadataFields(
+function fieldText(field?: AuthoredField): string | undefined {
+  const value = field?.value;
+  if (typeof value !== "string" && typeof value !== "number") return undefined;
+  const text = String(value).trim();
+  return text || undefined;
+}
+
+function fieldImageUrl(field?: AuthoredField): string | undefined {
+  const value = field?.value;
+  if (!value || typeof value !== "object") return undefined;
+  const src = (value as { src?: unknown }).src;
+  return typeof src === "string" && src ? src : undefined;
+}
+
+/** Builds Next.js metadata from this starter's page fields. */
+function metadataFromRouteFields(
   fields: Record<string, AuthoredField | undefined> | undefined
-) {
-  const text = (field?: AuthoredField) => {
-    const value = field?.value;
-    if (typeof value !== "string" && typeof value !== "number") return undefined;
-    return String(value) ? field : undefined;
-  };
+): Metadata {
   const title =
-    text(fields?.Title) ??
-    text(fields?.metadataTitle) ??
-    text(fields?.pageTitle) ??
-    text(fields?.ogTitle);
+    fieldText(fields?.baseMetadataTitle) ??
+    fieldText(fields?.metadataTitle) ??
+    fieldText(fields?.Title) ??
+    fieldText(fields?.pageTitle) ??
+    fieldText(fields?.ogTitle);
+  const description =
+    fieldText(fields?.baseMetadataDescription) ??
+    fieldText(fields?.metadataDescription) ??
+    fieldText(fields?.pageSummary) ??
+    fieldText(fields?.ogDescription);
+  const keywords =
+    fieldText(fields?.baseMetadataKeywords) ?? fieldText(fields?.metadataKeywords);
+  const author =
+    fieldText(fields?.baseMetadataAuthor) ?? fieldText(fields?.metadataAuthor);
+  const ogTitle =
+    fieldText(fields?.baseOgTitle) ?? fieldText(fields?.ogTitle) ?? title;
+  const ogDescription =
+    fieldText(fields?.baseOgDescription) ??
+    fieldText(fields?.ogDescription) ??
+    fieldText(fields?.metadataDescription) ??
+    fieldText(fields?.pageSummary);
+  const ogImage = fieldImageUrl(
+    fields?.baseOgImage ?? fields?.ogImage ?? fields?.thumbnailImage
+  );
 
   return {
-    ...fields,
-    Title: title,
-    baseMetadataTitle: text(fields?.baseMetadataTitle) ?? text(fields?.metadataTitle) ?? title,
-    baseMetadataDescription:
-      text(fields?.baseMetadataDescription) ??
-      text(fields?.metadataDescription) ??
-      text(fields?.pageSummary) ??
-      text(fields?.ogDescription),
-    baseMetadataKeywords: text(fields?.baseMetadataKeywords) ?? text(fields?.metadataKeywords),
-    baseMetadataAuthor: text(fields?.baseMetadataAuthor) ?? text(fields?.metadataAuthor),
-    baseOgTitle: text(fields?.baseOgTitle) ?? text(fields?.ogTitle) ?? title,
-    baseOgDescription:
-      text(fields?.baseOgDescription) ??
-      text(fields?.ogDescription) ??
-      text(fields?.metadataDescription) ??
-      text(fields?.pageSummary),
-    baseOgImage: fields?.baseOgImage ?? fields?.ogImage ?? fields?.thumbnailImage,
+    ...(title ? { title } : {}),
+    ...(description ? { description } : {}),
+    ...(keywords ? { keywords } : {}),
+    ...(author ? { authors: [{ name: author }] } : {}),
+    ...(ogTitle || ogDescription || ogImage
+      ? {
+          openGraph: {
+            ...(ogTitle ? { title: ogTitle } : {}),
+            ...(ogDescription ? { description: ogDescription } : {}),
+            ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+          },
+        }
+      : {}),
   };
 }
 
@@ -143,13 +167,8 @@ export const generateMetadata = async ({
   const route = page?.layout.sitecore.route;
 
   return {
-    ...getPageMetadata(
-      route && {
-        ...route,
-        fields: toSdkMetadataFields(
-          route.fields as Record<string, AuthoredField | undefined> | undefined
-        ) as typeof route.fields,
-      }
+    ...metadataFromRouteFields(
+      route?.fields as Record<string, AuthoredField | undefined> | undefined
     ),
     ...(canonicalUrl && {
       alternates: {

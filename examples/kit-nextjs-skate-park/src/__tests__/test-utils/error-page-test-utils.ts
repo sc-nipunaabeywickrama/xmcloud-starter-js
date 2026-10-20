@@ -17,7 +17,7 @@ export function createMockErrorPage(routeName: string, displayTitle?: string): P
       isPreview: false,
       isNormal: true,
       name: 'normal' as PageMode['name'],
-      designLibrary: { isVariantGeneration: false },
+      designLibrary: { isVariantGeneration: false, isLowCode: false },
       isDesignLibrary: false,
     },
     layout: {
@@ -37,7 +37,7 @@ export function createMockErrorPage(routeName: string, displayTitle?: string): P
       },
     },
     locale: MOCK_LOCALE,
-  } as Page;
+  } as unknown as Page;
 }
 
 export const MOCK_NOT_FOUND_PAGE = createMockErrorPage(
