@@ -28,6 +28,8 @@ export default defineCliConfig({
       '**/*.props.ts',
       '**/*.props.tsx',
       '**/*.schema.ts',
+      'src/components/atoms/**',
+      '**/*.schema.ts',
     ],
   },
 });
